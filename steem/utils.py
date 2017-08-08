@@ -26,6 +26,25 @@ DetectorFactory.seed = 0
 MIN_TEXT_LENGTH_FOR_DETECTION = 20
 
 
+rus_d = {
+    'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd',
+    'е': 'e', 'ё': 'yo', 'ж': 'zh', 'з': 'z', 'и': 'i',
+    'й': 'ij', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n',
+    'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't',
+    'у': 'u', 'ф': 'f', 'х': 'kh', 'ц': 'cz', 'ч': 'ch',
+    'ш': 'sh', 'щ': 'shch', 'ъ': 'xx', 'ы': 'y', 'ь': 'x',
+    'э': 'ye', 'ю': 'yu', 'я': 'ya',
+
+    'А': "A", 'Б': "B", 'В': "V", 'Г': "G", 'Д': "D",
+    'Е': "E", 'Ё': "yo", 'Ж': "ZH", 'З': "Z", 'И': "I",
+    'Й': "IJ", 'К': "K", 'Л': "L", 'М': "M", 'Н': "N",
+    'О': "O", 'П': "P", 'Р': "R", 'С': "S", 'Т': "T",
+    'У': "U", 'Ф': "F", 'Х': "KH", 'Ц': "CZ", 'Ч': "CH",
+    'Ш': "SH", 'Щ': "SHCH", 'Ъ': "XX", 'Ы': "Y", 'Ь': "X",
+    'Э': "YE", 'Ю': "YU", 'Я': "YA",
+}
+
+
 def block_num_from_hash(block_hash: str) -> int:
     """
     return the first 4 bytes (8 hex digits) of the block ID (the block_num)
@@ -263,6 +282,19 @@ def sanitize_permlink(permlink):
     return permlink
 
 
+def sanitize_permlink_category(permlink):
+    permlink = permlink.strip()
+    permlink = re.sub("_|\s|\.", "-", permlink)
+    permlink = re.sub("[^\w-]", "", permlink)
+    pattern = re.compile('|'.join(rus_d.keys()))
+    new_permlink = pattern.sub(lambda x: rus_d[x.group()], permlink)
+    if new_permlink != permlink:
+        permlink = 'ru--%s' % new_permlink
+    permlink = re.sub("[^a-z\A-Z0-9-]", "", permlink)
+    permlink = permlink.lower()
+    return permlink
+
+
 def derive_permlink(title, parent_permlink=None):
     permlink = ""
     if parent_permlink:
@@ -273,6 +305,18 @@ def derive_permlink(title, parent_permlink=None):
         permlink += title
 
     return sanitize_permlink(permlink)
+
+
+def derive_permlink_category(title, parent_permlink=None):
+    permlink = ""
+    if parent_permlink:
+        permlink += "re-"
+        permlink += parent_permlink
+        permlink += "-" + datetime.utcfromtimestamp(time.time()).strftime("%Y%m%dt%H%M%S%Z")
+    else:
+        permlink += title
+
+    return sanitize_permlink_category(permlink)
 
 
 def resolve_identifier(identifier):

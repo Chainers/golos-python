@@ -22,7 +22,7 @@ from .amount import Amount
 from .converter import Converter
 from .instance import shared_steemd_instance
 from .transactionbuilder import TransactionBuilder
-from .utils import derive_permlink, resolve_identifier, fmt_time_string, keep_in_dict
+from .utils import derive_permlink, derive_permlink_category, resolve_identifier, fmt_time_string, keep_in_dict
 from .wallet import Wallet
 
 log = logging.getLogger(__name__)
@@ -254,7 +254,7 @@ class Commit(object):
             if not permlink:
                 permlink = derive_permlink(title, parent_permlink)
         elif category:
-            parent_permlink = derive_permlink(category)
+            parent_permlink = derive_permlink_category(category)
             parent_author = ""
             if not permlink:
                 permlink = derive_permlink(title)
