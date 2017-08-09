@@ -241,8 +241,13 @@ class Commit(object):
                 raise ValueError('Can only specify up to 5 tags per post.')
 
             # first tag should be a category
-            category = tags[0]
-            json_metadata.update({"tags": tags})
+            category = derive_permlink_category(tags[0])
+            tags_temp = []
+
+            for i in tags[1:]:
+                tags_temp.append(derive_permlink_category(i))
+
+            json_metadata.update({"tags": tags_temp})
 
         # can't provide a category while replying to a post
         if reply_identifier and category:
