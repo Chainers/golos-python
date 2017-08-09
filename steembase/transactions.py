@@ -8,10 +8,10 @@ from datetime import datetime
 
 import ecdsa
 
-from .account import PrivateKey, PublicKey
-from .chains import known_chains
-from .operations import Operation, GrapheneObject, isArgsThisClass
-from .types import (
+from steembase.account import PrivateKey, PublicKey
+from steembase.chains import known_chains
+from steembase.operations import Operation, GrapheneObject, isArgsThisClass
+from steembase.types import (
     Array,
     Set,
     Signature,

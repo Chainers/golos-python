@@ -4,8 +4,8 @@ import time
 import warnings
 from typing import Union
 
-from .instance import shared_steemd_instance
-from .utils import parse_time
+from steem.instance import shared_steemd_instance
+from steem.utils import parse_time
 
 
 class Blockchain(object):
@@ -154,7 +154,7 @@ class Blockchain(object):
         return hashlib.sha1(bytes(data, 'utf-8')).hexdigest()
 
     def get_all_usernames(self, *args, **kwargs):
-        """ Fetch the full list of STEEM usernames. """
+        """ Fetch the full list of GOLOS usernames. """
         _ = args, kwargs
         warnings.warn('Blockchain.get_all_usernames() is now at Steemd.get_all_usernames().')
         return self.steem.get_all_usernames()

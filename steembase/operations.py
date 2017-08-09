@@ -4,19 +4,19 @@ import re
 import struct
 from collections import OrderedDict
 
-from .account import PublicKey
-from .operationids import operations
-from .types import (
+from steembase.account import PublicKey
+from steembase.operationids import operations
+from steembase.types import (
     Int16, Uint16, Uint32, Uint64,
     String, Bytes, Array, PointInTime, Bool,
     Optional, Map, Id, JsonObj, StaticVariant)
 
-default_prefix = "STM"
+default_prefix = "GLS"
 
 asset_precision = {
-    "STEEM": 3,
-    "VESTS": 6,
-    "SBD": 3,
+    "GOLOS": 3,
+    "GESTS": 6,
+    "GBG": 3,
 }
 
 

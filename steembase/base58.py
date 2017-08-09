@@ -9,7 +9,7 @@ log = logging.getLogger(__name__)
 assert sys.version_info[0] == 3, "graphenelib requires python3"
 
 """ Default Prefix """
-PREFIX = "STM"
+PREFIX = "GLS"
 
 known_prefixes = [
     PREFIX,

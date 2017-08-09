@@ -9,10 +9,10 @@ from steembase.storage import configStorage
 from steembase.transactions import SignedTransaction
 from steembase.types import PointInTime
 
-from .block import Block
-from .blockchain import Blockchain
-from .post import Post
-from .utils import resolve_identifier
+from steem.block import Block
+from steem.blockchain import Blockchain
+from steem.post import Post
+from steem.utils import resolve_identifier
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +50,7 @@ class Steemd(HttpClient):
 
     def __init__(self, nodes=None, **kwargs):
         if not nodes:
-            nodes = get_config_node_list() or ['https://steemd.steemit.com']
+            nodes = get_config_node_list() or ['https://ws.golos.io']
         
         super(Steemd, self).__init__(nodes, **kwargs)
 

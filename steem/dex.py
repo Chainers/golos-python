@@ -3,8 +3,8 @@ import random
 from steembase import transactions, operations
 from steembase.storage import configStorage as config
 
-from .amount import Amount
-from .instance import shared_steemd_instance
+from steem.amount import Amount
+from steem.instance import shared_steemd_instance
 
 
 class Dex(object):
@@ -14,7 +14,7 @@ class Dex(object):
         :param Steemd steemd_instance: Steemd() instance to use when accessing a RPC
 
     """
-    assets = ["STEEM", "SBD"]
+    assets = ["GOLOS", "GBG"]
 
     def __init__(self, steemd_instance=None):
         self.steemd = steemd_instance or shared_steemd_instance()
@@ -25,23 +25,23 @@ class Dex(object):
 
             :param str symbol: Symbol to get the data for (i.e. STEEM, SBD, VESTS)
         """
-        if symbol == "STEEM":
-            return {"symbol": "STEEM",
+        if symbol == "GOLOS":
+            return {"symbol": "GOLOS",
                     "precision": 3
                     }
-        elif symbol == "SBD":
-            return {"symbol": "SBD",
+        elif symbol == "GBG":
+            return {"symbol": "GBG",
                     "precision": 3
                     }
-        elif symbol == "VESTS":
-            return {"symbol": "VESTS",
+        elif symbol == "GESTS":
+            return {"symbol": "GESTS",
                     "precision": 6
                     }
         else:
             return None
 
     def _get_assets(self, quote):
-        """ Given the `quote` asset, return base. If quote is SBD, then
+        """ Given the `quote` asset, return base. If quote is GBG, then
             base is STEEM and vice versa.
         """
         assets = self.assets.copy()

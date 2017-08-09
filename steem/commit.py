@@ -17,13 +17,13 @@ from steembase.exceptions import (
 )
 from steembase.storage import configStorage
 
-from .account import Account
-from .amount import Amount
-from .converter import Converter
-from .instance import shared_steemd_instance
-from .transactionbuilder import TransactionBuilder
-from .utils import derive_permlink, derive_permlink_category, resolve_identifier, fmt_time_string, keep_in_dict
-from .wallet import Wallet
+from steem.account import Account
+from steem.amount import Amount
+from steem.converter import Converter
+from steem.instance import shared_steemd_instance
+from steem.transactionbuilder import TransactionBuilder
+from steem.utils import derive_permlink, derive_permlink_category, resolve_identifier, fmt_time_string, keep_in_dict
+from steem.wallet import Wallet
 
 log = logging.getLogger(__name__)
 
@@ -302,7 +302,7 @@ class Commit(object):
                 schema(beneficiaries)
                 options['beneficiaries'] = beneficiaries
 
-            default_max_payout = "1000000.000 SBD"
+            default_max_payout = "1000000.000 GBG"
             comment_op = operations.CommentOptions(
                 **{"author": author,
                    "permlink": permlink,
@@ -453,7 +453,7 @@ class Commit(object):
         if not creator:
             raise ValueError(
                 "Not creator account given. Define it with " +
-                "creator=x, or set the default_account using steempy")
+                "creator=x, or set the default_account using golospy")
         if password and (owner_key or posting_key or active_key or memo_key):
             raise ValueError(
                 "You cannot use 'password' AND provide keys!"
@@ -538,7 +538,7 @@ class Commit(object):
             delegated_sp_fee_mult = 5
 
             if delegation_fee_steem < 1:
-                raise ValueError("When creating account with delegation, at least 1 STEEM in fee must be paid.")
+                raise ValueError("When creating account with delegation, at least 1 GOLOS in fee must be paid.")
 
             # calculate required remaining fee in vests
             remaining_fee = required_fee_steem - delegation_fee_steem
@@ -547,8 +547,8 @@ class Commit(object):
                 required_fee_vests = Converter().sp_to_vests(required_sp) + 1
 
         s = {'creator': creator,
-             'fee': '%s STEEM' % (delegation_fee_steem or required_fee_steem),
-             'delegation': '%s VESTS' % required_fee_vests,
+             'fee': '%s GOLOS' % (delegation_fee_steem or required_fee_steem),
+             'delegation': '%s GESTS' % required_fee_vests,
              'json_metadata': json_meta or {},
              'memo_key': memo,
              'new_account_name': account_name,
@@ -568,11 +568,11 @@ class Commit(object):
         return self.finalizeOp(op, creator, "active")
 
     def transfer(self, to, amount, asset, memo="", account=None):
-        """ Transfer SBD or STEEM to another account.
+        """ Transfer GBG or GOLOS to another account.
 
             :param str to: Recipient
             :param float amount: Amount to transfer
-            :param str asset: Asset to transfer (``SBD`` or ``STEEM``)
+            :param str asset: Asset to transfer (``GBG`` or ``GOLOS``)
             :param str memo: (optional) Memo, may begin with `#` for encrypted messaging
             :param str account: (optional) the source account for the transfer if not ``default_account``
         """
@@ -581,7 +581,7 @@ class Commit(object):
         if not account:
             raise ValueError("You need to provide an account")
 
-        assert asset in ['STEEM', 'SBD']
+        assert asset in ['GOLOS', 'GBG']
 
         if memo and memo[0] == "#":
             from steembase import memo as Memo
@@ -612,7 +612,7 @@ class Commit(object):
         return self.finalizeOp(op, account, "active")
 
     def withdraw_vesting(self, amount, account=None):
-        """ Withdraw VESTS from the vesting account.
+        """ Withdraw GESTS from the vesting account.
 
             :param float amount: number of VESTS to withdraw over a period of 104 weeks
             :param str account: (optional) the source account for the transfer if not ``default_account``
@@ -627,7 +627,7 @@ class Commit(object):
                "vesting_shares": '{:.{prec}f} {asset}'.format(
                    float(amount),
                    prec=6,
-                   asset="VESTS"
+                   asset="GESTS"
                ),
                }
         )
@@ -635,9 +635,9 @@ class Commit(object):
         return self.finalizeOp(op, account, "active")
 
     def transfer_to_vesting(self, amount, to=None, account=None):
-        """ Vest STEEM
+        """ Vest GOLOS
 
-            :param float amount: number of STEEM to vest
+            :param float amount: number of GOLOS to vest
             :param str to: (optional) the source account for the transfer if not ``default_account``
             :param str account: (optional) the source account for the transfer if not ``default_account``
         """
@@ -662,7 +662,7 @@ class Commit(object):
         return self.finalizeOp(op, account, "active")
 
     def convert(self, amount, account=None, request_id=None):
-        """ Convert SteemDollars to Steem (takes one week to settle)
+        """ Convert Golos gold to Golos (takes one week to settle)
 
             :param float amount: number of VESTS to withdraw over a period of 104 weeks
             :param str account: (optional) the source account for the transfer if not ``default_account``
@@ -683,22 +683,22 @@ class Commit(object):
                "amount": '{:.{prec}f} {asset}'.format(
                    float(amount),
                    prec=3,
-                   asset='SBD'
+                   asset='GBG'
                )}
         )
 
         return self.finalizeOp(op, account, "active")
 
     def transfer_to_savings(self, amount, asset, memo, to=None, account=None):
-        """ Transfer SBD or STEEM into a 'savings' account.
+        """ Transfer GBG or GOLOS into a 'savings' account.
 
-            :param float amount: STEEM or SBD amount
-            :param float asset: 'STEEM' or 'SBD'
+            :param float amount: GOLOS or GBG amount
+            :param float asset: 'GOLOS' or 'GBG'
             :param str memo: (optional) Memo
             :param str to: (optional) the source account for the transfer if not ``default_account``
             :param str account: (optional) the source account for the transfer if not ``default_account``
         """
-        assert asset in ['STEEM', 'SBD']
+        assert asset in ['GOLOS', 'GBG']
 
         if not account:
             account = configStorage.get("default_account")
@@ -722,16 +722,16 @@ class Commit(object):
         return self.finalizeOp(op, account, "active")
 
     def transfer_from_savings(self, amount, asset, memo, request_id=None, to=None, account=None):
-        """ Withdraw SBD or STEEM from 'savings' account.
+        """ Withdraw GBG or GOLOS from 'savings' account.
 
-            :param float amount: STEEM or SBD amount
-            :param float asset: 'STEEM' or 'SBD'
+            :param float amount: GOLOS or GBG amount
+            :param float asset: 'GOLOS' or 'GBG'
             :param str memo: (optional) Memo
             :param str request_id: (optional) identifier for tracking or cancelling the withdrawal
             :param str to: (optional) the source account for the transfer if not ``default_account``
             :param str account: (optional) the source account for the transfer if not ``default_account``
         """
-        assert asset in ['STEEM', 'SBD']
+        assert asset in ['GOLOS', 'GBG']
 
         if not account:
             account = configStorage.get("default_account")
@@ -822,7 +822,7 @@ class Commit(object):
 
         Args:
             to_account (string): Account we are delegating shares to (delegatee).
-            vesting_shares (string): Amount of VESTS to delegate eg. `10000 VESTS`.
+            vesting_shares (string): Amount of GESTS to delegate eg. `10000 GESTS`.
             account (string): The source account (delegator). If not specified, ``default_account`` is used.
         """
         if not account:
@@ -842,7 +842,7 @@ class Commit(object):
     def witness_feed_publish(self, steem_usd_price, quote="1.000", account=None):
         """ Publish a feed price as a witness.
 
-            :param float steem_usd_price: Price of STEEM in USD (implied price)
+            :param float steem_usd_price: Price of GOLOS in RU (implied price)
             :param float quote: (optional) Quote Price. Should be 1.000, unless we are adjusting the feed to support the peg.
             :param str account: (optional) the source account for the transfer if not ``default_account``
         """
@@ -855,8 +855,8 @@ class Commit(object):
             **{
                 "publisher": account,
                 "exchange_rate": {
-                    "base": "%s SBD" % steem_usd_price,
-                    "quote": "%s STEEM" % quote,
+                    "base": "%s GBG" % steem_usd_price,
+                    "quote": "%s GOLOS" % quote,
                 }
             }
         )
@@ -895,7 +895,7 @@ class Commit(object):
                 "url": url,
                 "block_signing_key": signing_key,
                 "props": props,
-                "fee": "0.000 STEEM",
+                "fee": "0.000 GOLOS",
                 "prefix": self.steemd.chain_params["prefix"]
             }
         )
@@ -947,8 +947,8 @@ class Commit(object):
                 to the 'to' account.
             :param str account: (optional) the vesting account
             :param bool auto_vest: Set to true if the from account
-                should receive the VESTS as VESTS, or false if it should
-                receive them as STEEM. (defaults to ``False``)
+                should receive the GESTS as GESTS, or false if it should
+                receive them as GOLOS. (defaults to ``False``)
         """
         if not account:
             account = configStorage.get("default_account")
@@ -1282,7 +1282,7 @@ class Commit(object):
                     {
                         "author": "",
                         "permlink": "",
-                        "max_accepted_payout": "1000000.000 SBD",
+                        "max_accepted_payout": "1000000.000 GBG",
                         "percent_steem_dollars": 10000,
                         "allow_votes": True,
                         "allow_curation_rewards": True,
@@ -1295,7 +1295,7 @@ class Commit(object):
             raise ValueError("You need to provide an account")
         account = Account(account, steemd_instance=self.steemd)
         author, permlink = resolve_identifier(identifier)
-        default_max_payout = "1000000.000 SBD"
+        default_max_payout = "1000000.000 GBG"
         op = operations.CommentOptions(
             **{
                 "author": author,

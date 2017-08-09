@@ -9,11 +9,11 @@ from funcy.simple_funcs import rpartial
 from steembase.exceptions import AccountDoesNotExistsException
 from toolz import dissoc
 
-from .amount import Amount
-from .blockchain import Blockchain
-from .converter import Converter
-from .instance import shared_steemd_instance
-from .utils import parse_time, json_expand
+from steem.amount import Amount
+from steem.blockchain import Blockchain
+from steem.converter import Converter
+from steem.instance import shared_steemd_instance
+from steem.utils import parse_time, json_expand
 
 
 class Account(dict):
@@ -75,26 +75,20 @@ class Account(dict):
 
     def get_balances(self):
         available = {
-            'STEEM': Amount(self['balance']).amount,
-            'SBD': Amount(self['sbd_balance']).amount,
-            'VESTS': Amount(self['vesting_shares']).amount,
+            'GOLOS': Amount(self['balance']).amount,
+            'GBG': Amount(self['sbd_balance']).amount,
+            'GESTS': Amount(self['vesting_shares']).amount,
         }
 
         savings = {
-            'STEEM': Amount(self['savings_balance']).amount,
-            'SBD': Amount(self['savings_sbd_balance']).amount,
-        }
-
-        rewards = {
-            'STEEM': Amount(self['reward_steem_balance']).amount,
-            'SBD': Amount(self['reward_sbd_balance']).amount,
-            'VESTS': Amount(self['reward_vesting_balance']).amount,
+            'GOLOS': Amount(self['savings_balance']).amount,
+            'GBG': Amount(self['savings_sbd_balance']).amount,
         }
 
         totals = {
-            'STEEM': sum([available['STEEM'], savings['STEEM'], rewards['STEEM']]),
-            'SBD': sum([available['SBD'], savings['SBD'], rewards['SBD']]),
-            'VESTS': sum([available['VESTS'], rewards['VESTS']]),
+            'GOLOS': sum([available['GOLOS'], savings['GOLOS']]),
+            'GBG': sum([available['GBG'], savings['GBG']]),
+            'GESTS': sum([available['GESTS']]),
         }
 
         total = walk_values(rpartial(round, 3), totals)
@@ -102,7 +96,6 @@ class Account(dict):
         return {
             'available': available,
             'savings': savings,
-            'rewards': rewards,
             'total': total,
         }
 

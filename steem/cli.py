@@ -10,15 +10,15 @@ import steem as stm
 from prettytable import PrettyTable
 from steembase.storage import configStorage
 
-from .account import Account
-from .amount import Amount
-from .block import Block
-from .blockchain import Blockchain
-from .dex import Dex
-from .instance import shared_steemd_instance
-from .post import Post
-from .utils import construct_identifier, strfage
-from .witness import Witness
+from steem.account import Account
+from steem.amount import Amount
+from steem.block import Block
+from steem.blockchain import Blockchain
+from steem.dex import Dex
+from steem.instance import shared_steemd_instance
+from steem.post import Post
+from steem.utils import construct_identifier, strfage
+from steem.witness import Witness
 
 availableConfigurationKeys = [
     "default_account",
@@ -46,7 +46,7 @@ def legacy():
         '--node',
         type=str,
         default=configStorage["node"],
-        help='URL for public Steem API (default: "https://steemd.steemit.com")'
+        help='URL for public Steem API (default: "https://ws.golos.io")'
     )
 
     parser.add_argument(
@@ -225,7 +225,7 @@ def legacy():
     """
         Command "transfer"
     """
-    parser_transfer = subparsers.add_parser('transfer', help='Transfer STEEM')
+    parser_transfer = subparsers.add_parser('transfer', help='Transfer GOLOS')
     parser_transfer.set_defaults(command="transfer")
     parser_transfer.add_argument(
         'to',
@@ -240,8 +240,8 @@ def legacy():
     parser_transfer.add_argument(
         'asset',
         type=str,
-        choices=["STEEM", "SBD"],
-        help='Asset to transfer (i.e. STEEM or SDB)'
+        choices=["GOLOS", "GBG"],
+        help='Asset to transfer (i.e. GOLOS or GBG)'
     )
     parser_transfer.add_argument(
         'memo',
@@ -261,12 +261,12 @@ def legacy():
     """
         Command "powerup"
     """
-    parser_powerup = subparsers.add_parser('powerup', help='Power up (vest STEEM as STEEM POWER)')
+    parser_powerup = subparsers.add_parser('powerup', help='Power up (vest GOLOS as GOLOS POWER)')
     parser_powerup.set_defaults(command="powerup")
     parser_powerup.add_argument(
         'amount',
         type=str,
-        help='Amount of VESTS to powerup'
+        help='Amount of GESTS to powerup'
     )
     parser_powerup.add_argument(
         '--account',
@@ -286,12 +286,12 @@ def legacy():
     """
         Command "powerdown"
     """
-    parser_powerdown = subparsers.add_parser('powerdown', help='Power down (start withdrawing STEEM from steem POWER)')
+    parser_powerdown = subparsers.add_parser('powerdown', help='Power down (start withdrawing GOLOS from steem POWER)')
     parser_powerdown.set_defaults(command="powerdown")
     parser_powerdown.add_argument(
         'amount',
         type=str,
-        help='Amount of VESTS to powerdown'
+        help='Amount of GESTS to powerdown'
     )
     parser_powerdown.add_argument(
         '--account',
@@ -310,7 +310,7 @@ def legacy():
         'to',
         type=str,
         default=configStorage["default_account"],
-        help='The account receiving either VESTS/SteemPower or STEEM.'
+        help='The account receiving either GESTS/SteemPower or GOLOS.'
     )
     parser_powerdownroute.add_argument(
         '--percentage',
@@ -327,19 +327,19 @@ def legacy():
     parser_powerdownroute.add_argument(
         '--auto_vest',
         action='store_true',
-        help=('Set to true if the from account should receive the VESTS as'
-              'VESTS, or false if it should receive them as STEEM.')
+        help=('Set to true if the from account should receive the GESTS as'
+              'GESTS, or false if it should receive them as GOLOS.')
     )
 
     """
         Command "convert"
     """
-    parser_convert = subparsers.add_parser('convert', help='Convert STEEMDollars to Steem (takes a week to settle)')
+    parser_convert = subparsers.add_parser('convert', help='Convert GOLOS gold to Golos (takes a week to settle)')
     parser_convert.set_defaults(command="convert")
     parser_convert.add_argument(
         'amount',
         type=float,
-        help='Amount of SBD to convert'
+        help='Amount of GBG to convert'
     )
     parser_convert.add_argument(
         '--account',
@@ -483,7 +483,7 @@ def legacy():
         '--fee',
         type=str,
         required=False,
-        default='0 STEEM',
+        default='0 GOLOS',
         help='Base Fee to pay. Delegate the rest.'
     )
 
@@ -598,7 +598,7 @@ def legacy():
     """
         Command "buy"
     """
-    parser_buy = subparsers.add_parser('buy', help='Buy STEEM or SBD from the internal market')
+    parser_buy = subparsers.add_parser('buy', help='Buy GOLOS or GBG from the internal market')
     parser_buy.set_defaults(command="buy")
     parser_buy.add_argument(
         'amount',
@@ -608,13 +608,13 @@ def legacy():
     parser_buy.add_argument(
         'asset',
         type=str,
-        choices=["STEEM", "SBD"],
-        help='Asset to buy (i.e. STEEM or SDB)'
+        choices=["GOLOS", "GBG"],
+        help='Asset to buy (i.e. GOLOS or GBG)'
     )
     parser_buy.add_argument(
         'price',
         type=float,
-        help='Limit buy price denoted in (SBD per STEEM)'
+        help='Limit buy price denoted in (GBG per GOLOS)'
     )
     parser_buy.add_argument(
         '--account',
@@ -627,7 +627,7 @@ def legacy():
     """
         Command "sell"
     """
-    parser_sell = subparsers.add_parser('sell', help='Sell STEEM or SBD from the internal market')
+    parser_sell = subparsers.add_parser('sell', help='Sell GOLOS or GBG from the internal market')
     parser_sell.set_defaults(command="sell")
     parser_sell.add_argument(
         'amount',
@@ -637,13 +637,13 @@ def legacy():
     parser_sell.add_argument(
         'asset',
         type=str,
-        choices=["STEEM", "SBD"],
-        help='Asset to sell (i.e. STEEM or SDB)'
+        choices=["GOLOS", "GBG"],
+        help='Asset to sell (i.e. GOLOS or GBG)'
     )
     parser_sell.add_argument(
         'price',
         type=float,
-        help='Limit sell price denoted in (SBD per STEEM)'
+        help='Limit sell price denoted in (GBG per GOLOS)'
     )
     parser_sell.add_argument(
         '--account',
@@ -819,7 +819,7 @@ def legacy():
         '--sbd_interest_rate',
         type=float,
         required=False,
-        help='SBD interest rate in percent'
+        help='GBG interest rate in percent'
     )
     parser_witnessprops.add_argument(
         '--url',
@@ -865,7 +865,7 @@ def legacy():
         '--sbd_interest_rate',
         type=float,
         default=0.0,
-        help='SBD interest rate in percent'
+        help='GBG interest rate in percent'
     )
     parser_witnesscreate.add_argument(
         '--url',
@@ -917,7 +917,7 @@ def legacy():
         parser.print_help()
         sys.exit(2)
 
-    # initialize STEEM instance
+    # initialize GOLOS instance
     options = {
         "node": args.node,
         "unsigned": args.unsigned,
@@ -961,7 +961,7 @@ def legacy():
             )
             for key in info:
                 t.add_row([key, info[key]])
-            t.add_row(["steem per mvest", steem_per_mvest])
+            t.add_row(["golos per mvest", steem_per_mvest])
             t.add_row(["internal price", price])
             print(t.get_string(sortby="Key"))
 
@@ -1023,7 +1023,7 @@ def legacy():
                 except:
                     pass
             # Public Key
-            elif re.match("^STM.{48,55}$", obj):
+            elif re.match("^GLS.{48,55}$", obj):
                 account = steem.commit.wallet.getAccountFromPublicKey(obj)
                 if account:
                     t = PrettyTable(["Account"])
@@ -1081,7 +1081,7 @@ def legacy():
                     print("Would you like to make %s a default user?" % name)
                     print()
                     print("You can set it with with:")
-                    print("    steempy set default_account <account>")
+                    print("    golospy set default_account <account>")
                     print("=" * 30)
 
     elif args.command == "delkey":
@@ -1167,31 +1167,25 @@ def legacy():
                 a = Account(account)
 
                 print("\n@%s" % a.name)
-                t = PrettyTable(["Account", "STEEM", "SBD", "VESTS"])
+                t = PrettyTable(["Account", "GOLOS", "GBG", "GESTS"])
                 t.align = "r"
                 t.add_row([
                     'Available',
-                    a.balances['available']['STEEM'],
-                    a.balances['available']['SBD'],
-                    a.balances['available']['VESTS'],
-                ])
-                t.add_row([
-                    'Rewards',
-                    a.balances['rewards']['STEEM'],
-                    a.balances['rewards']['SBD'],
-                    a.balances['rewards']['VESTS'],
+                    a.balances['available']['GOLOS'],
+                    a.balances['available']['GBG'],
+                    a.balances['available']['GESTS'],
                 ])
                 t.add_row([
                     'Savings',
-                    a.balances['savings']['STEEM'],
-                    a.balances['savings']['SBD'],
+                    a.balances['savings']['GOLOS'],
+                    a.balances['savings']['GBG'],
                     'N/A',
                 ])
                 t.add_row([
                     'TOTAL',
-                    a.balances['total']['STEEM'],
-                    a.balances['total']['SBD'],
-                    a.balances['total']['VESTS'],
+                    a.balances['total']['GOLOS'],
+                    a.balances['total']['GBG'],
+                    a.balances['total']['GESTS'],
                 ])
                 print(t)
         else:
@@ -1214,7 +1208,7 @@ def legacy():
                 i["last_payment"],
                 "in %s" % strfage(i["next_payment_duration"]),
                 "%.1f%%" % i["interest_rate"],
-                "%.3f %s" % (i["interest"], "SBD"),
+                "%.3f %s" % (i["interest"], "GBG"),
             ])
         print(t)
 
@@ -1226,7 +1220,7 @@ def legacy():
         if not args.foreign_account:
             from steembase.account import PasswordKey
             pwd = get_terminal(text="Password for Key Derivation: ", confirm=True)
-            args.foreign_account = format(PasswordKey(args.account, pwd, args.permission).get_public(), "STM")
+            args.foreign_account = format(PasswordKey(args.account, pwd, args.permission).get_public(), "GLS")
         print_json(steem.commit.allow(
             args.foreign_account,
             weight=args.weight,
@@ -1249,7 +1243,8 @@ def legacy():
             from steembase.account import PasswordKey
             pw = get_terminal(text="Password for Memo Key: ", confirm=True, allowedempty=False)
             memo_key = PasswordKey(args.account, pw, "memo")
-            args.key = format(memo_key.get_public_key(), "STM")
+            # TODO: SMT??? for Golos?
+            args.key = format(memo_key.get_public_key(), "GLS")
             memo_privkey = memo_key.get_private_key()
             # Add the key to the wallet
             if not args.no_broadcast:
@@ -1290,7 +1285,7 @@ def legacy():
 
         if "owner" in args.roles:
             owner_key = PasswordKey(args.account, password, role="owner")
-            owner_pubkey = format(owner_key.get_public_key(), "STM")
+            owner_pubkey = format(owner_key.get_public_key(), "GLS")
             if owner_pubkey in [x[0] for x in account["owner"]["key_auths"]]:
                 print("Importing owner key!")
                 owner_privkey = owner_key.get_private_key()
@@ -1299,7 +1294,7 @@ def legacy():
 
         if "active" in args.roles:
             active_key = PasswordKey(args.account, password, role="active")
-            active_pubkey = format(active_key.get_public_key(), "STM")
+            active_pubkey = format(active_key.get_public_key(), "GLS")
             if active_pubkey in [x[0] for x in account["active"]["key_auths"]]:
                 print("Importing active key!")
                 active_privkey = active_key.get_private_key()
@@ -1308,7 +1303,7 @@ def legacy():
 
         if "posting" in args.roles:
             posting_key = PasswordKey(args.account, password, role="posting")
-            posting_pubkey = format(posting_key.get_public_key(), "STM")
+            posting_pubkey = format(posting_key.get_public_key(), "GLS")
             if posting_pubkey in [x[0] for x in account["posting"]["key_auths"]]:
                 print("Importing posting key!")
                 posting_privkey = posting_key.get_private_key()
@@ -1317,7 +1312,7 @@ def legacy():
 
         if "memo" in args.roles:
             memo_key = PasswordKey(args.account, password, role="memo")
-            memo_pubkey = format(memo_key.get_public_key(), "STM")
+            memo_pubkey = format(memo_key.get_public_key(), "GLS")
             if memo_pubkey == account["memo_key"]:
                 print("Importing memo key!")
                 memo_privkey = memo_key.get_private_key()
@@ -1350,7 +1345,7 @@ def legacy():
         steem.commit.broadcast(tx)
 
     elif args.command == "buy":
-        if args.asset == "SBD":
+        if args.asset == "GBG":
             price = 1.0 / args.price
         else:
             price = args.price
@@ -1363,7 +1358,7 @@ def legacy():
         ))
 
     elif args.command == "sell":
-        if args.asset == "SBD":
+        if args.asset == "GBG":
             price = 1.0 / args.price
         else:
             price = args.price
@@ -1459,7 +1454,7 @@ def legacy():
         witness = Witness(args.witness)
         props = witness["props"]
         if args.account_creation_fee:
-            props["account_creation_fee"] = str(Amount("%f STEEM" % args.account_creation_fee))
+            props["account_creation_fee"] = str(Amount("%f GOLOS" % args.account_creation_fee))
         if args.maximum_block_size:
             props["maximum_block_size"] = args.maximum_block_size
         if args.sbd_interest_rate:
@@ -1474,7 +1469,7 @@ def legacy():
 
     elif args.command == "witnesscreate":
         props = {
-            "account_creation_fee": str(Amount("%f STEEM" % args.account_creation_fee)),
+            "account_creation_fee": str(Amount("%f GOLOS" % args.account_creation_fee)),
             "maximum_block_size": args.maximum_block_size,
             "sbd_interest_rate": int(args.sbd_interest_rate * 100)
         }

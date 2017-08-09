@@ -39,9 +39,9 @@ class DataDir(object):
          in the `backups/` directory every now and then.
     """
 
-    appname = "steem"
-    appauthor = "Steemit Inc"
-    storageDatabase = "steem.sqlite"
+    appname = "golos-python"
+    appauthor = "SteepShot"
+    storageDatabase = "golos.sqlite"
 
     data_dir = user_data_dir(appname, appauthor)
     sqlDataBaseFile = os.path.join(data_dir, storageDatabase)
@@ -223,7 +223,7 @@ class Configuration(DataDir):
         "limit": 10,
         "list_sorting": "trending",
         "post_category": "steem",
-        "prefix": "STM"
+        "prefix": "GLS"
     }
 
     def __init__(self):

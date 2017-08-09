@@ -9,7 +9,7 @@ from steembase.exceptions import (
     WalletExists
 )
 
-from .account import Account
+from steem.account import Account
 
 log = logging.getLogger(__name__)
 
@@ -56,7 +56,7 @@ class Wallet:
 
         # RPC
         self.steemd = steemd_instance or shared_steemd_instance()
-        self.prefix = "STM"
+        self.prefix = "GLS"
 
         if "keys" in kwargs:
             self.setKeys(kwargs["keys"])

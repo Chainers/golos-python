@@ -2,12 +2,12 @@ import hashlib
 import struct
 from binascii import hexlify, unhexlify
 
-from .operations import Memo
+from steembase.operations import Memo
 from Crypto.Cipher import AES
-from .base58 import base58encode, base58decode
-from .account import PrivateKey, PublicKey
+from steembase.base58 import base58encode, base58decode
+from steembase.account import PrivateKey, PublicKey
 
-default_prefix = "STM"
+default_prefix = "GLS"
 
 
 def get_shared_secret(priv, pub):

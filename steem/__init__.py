@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
-from .steem import Steem
+from steem.steem import Steem
 
-__version__ = '0.18.9'
+__version__ = '0.0.1'

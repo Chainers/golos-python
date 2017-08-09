@@ -13,11 +13,11 @@ from steembase.exceptions import (
 )
 from steembase.operations import CommentOptions
 
-from .amount import Amount
-from .commit import Commit
-from .instance import shared_steemd_instance
-from .utils import construct_identifier, resolve_identifier
-from .utils import parse_time, remove_from_dict
+from steem.amount import Amount
+from steem.commit import Commit
+from steem.instance import shared_steemd_instance
+from steem.utils import construct_identifier, resolve_identifier
+from steem.utils import parse_time, remove_from_dict
 
 log = logging.getLogger(__name__)
 
@@ -86,7 +86,7 @@ class Post(dict):
             "promoted",
         ]
         for p in sbd_amounts:
-            post[p] = Amount(post.get(p, "0.000 SBD"))
+            post[p] = Amount(post.get(p, "0.000 GBG"))
 
         # sum of payouts to get trending posts
         post['sum_payout_data'] = post['total_payout_value'] + post['curator_payout_value'] + post['pending_payout_value']

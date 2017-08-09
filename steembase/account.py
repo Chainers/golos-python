@@ -5,8 +5,8 @@ from binascii import hexlify, unhexlify
 
 import ecdsa
 
-from .base58 import ripemd160, Base58
-from .dictionary import words as BrainKeyDictionary
+from steembase.base58 import ripemd160, Base58
+from steembase.dictionary import words as BrainKeyDictionary
 
 
 class PasswordKey(object):
@@ -136,7 +136,7 @@ class Address(object):
 
     """
 
-    def __init__(self, address=None, pubkey=None, prefix="STM"):
+    def __init__(self, address=None, pubkey=None, prefix="GLS"):
         self.prefix = prefix
         if pubkey is not None:
             self._pubkey = Base58(pubkey, prefix=prefix)
@@ -210,7 +210,7 @@ class PublicKey(object):
 
     """
 
-    def __init__(self, pk, prefix="STM"):
+    def __init__(self, pk, prefix="GLS"):
         self.prefix = prefix
         self._pk = Base58(pk, prefix=prefix)
         self.address = Address(pubkey=pk, prefix=prefix)
@@ -297,7 +297,7 @@ class PrivateKey(object):
 
     """
 
-    def __init__(self, wif=None, prefix="STM"):
+    def __init__(self, wif=None, prefix="GLS"):
         if wif is None:
             import os
             self._wif = Base58(hexlify(os.urandom(32)).decode('ascii'))
