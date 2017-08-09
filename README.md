@@ -1,15 +1,16 @@
-# Official Python STEEM Library
-`steem-python` is the official STEEM library for Python. It comes with a BIP38 encrypted wallet and a practical CLI utility called `steempy`.
+# Python GOLOS Library by SteepShot team
+`golos-python` is the GOLOS library for Python which was forked from official STEEM library for Python. It comes with a BIP38 encrypted wallet and a practical CLI utility called `golospy`.
 
 ## Installation
-You can install `steem-python` with `pip`:
+You can install `golos-python` with `pip`:
 
 ```
-pip install -U steem
+pip install -U golos-python
 ```
-
+<!--
 ## Documentation
 Documentation is available at **http://steem.readthedocs.io**
+-->
 
 ## TODO
 * more unit-tests

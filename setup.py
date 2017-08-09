@@ -5,7 +5,7 @@ import sys
 from setuptools import find_packages
 from setuptools import setup
 
-assert sys.version_info[0] == 3 and sys.version_info[1] >= 5, "steem requires Python 3.5 or newer"
+assert sys.version_info[0] == 3 and sys.version_info[1] >= 5, "golos-python requires Python 3.5 or newer"
 
 
 def readme_file():
@@ -14,9 +14,9 @@ def readme_file():
 
 # yapf: disable
 setup(
-    name='steem',
-    version='0.18.9',
-    description='Official Python STEEM Library',
+    name='golos-python',
+    version='0.0.1',
+    description='Python GOLOS Library by SteepShot team.',
     long_description=open(readme_file()).read(),
     packages=find_packages(exclude=['scripts']),
     setup_requires=['pytest-runner'],
@@ -48,10 +48,11 @@ setup(
         'diff-match-patch',
         'prettytable',
         'voluptuous',
+        "python-dateutil",
     ],
     entry_points={
         'console_scripts': [
-            'steempy=steem.cli:legacy',
-            'piston=steem.cli:legacy',
+            'golospy=steem.cli:legacy',
+            'golospiston=steem.cli:legacy',
         ]
     })
