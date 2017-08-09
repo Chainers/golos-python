@@ -1,6 +1,6 @@
-from steem.instance import shared_steemd_instance
+from golos.instance import shared_steemd_instance
 
-from steembase.exceptions import WitnessDoesNotExistsException
+from golosbase.exceptions import WitnessDoesNotExistsException
 
 
 class Witness(dict):

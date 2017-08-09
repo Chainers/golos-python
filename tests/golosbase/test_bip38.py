@@ -1,7 +1,7 @@
 import unittest
 
-from steembase.account import PrivateKey
-from steembase.bip38 import encrypt, decrypt
+from golosbase.account import PrivateKey
+from golosbase.bip38 import encrypt, decrypt
 
 
 class Testcases(unittest.TestCase):

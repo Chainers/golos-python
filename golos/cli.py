@@ -6,19 +6,19 @@ import re
 import sys
 
 import pkg_resources
-import steem as stm
+from golos import Steem
 from prettytable import PrettyTable
-from steembase.storage import configStorage
+from golosbase.storage import configStorage
 
-from steem.account import Account
-from steem.amount import Amount
-from steem.block import Block
-from steem.blockchain import Blockchain
-from steem.dex import Dex
-from steem.instance import shared_steemd_instance
-from steem.post import Post
-from steem.utils import construct_identifier, strfage
-from steem.witness import Witness
+from golos.account import Account
+from golos.amount import Amount
+from golos.block import Block
+from golos.blockchain import Blockchain
+from golos.dex import Dex
+from golos.instance import shared_steemd_instance
+from golos.post import Post
+from golos.utils import construct_identifier, strfage
+from golos.witness import Witness
 
 availableConfigurationKeys = [
     "default_account",
@@ -928,7 +928,7 @@ def legacy():
     if args.no_wallet:
         options.update({"wif": []})
 
-    steem = stm.Steem(no_broadcast=args.no_broadcast, **options)
+    steem = Steem(no_broadcast=args.no_broadcast, **options)
 
     if args.command == "set":
         if (args.key in ["default_account"] and
@@ -1218,7 +1218,7 @@ def legacy():
 
     elif args.command == "allow":
         if not args.foreign_account:
-            from steembase.account import PasswordKey
+            from golosbase.account import PasswordKey
             pwd = get_terminal(text="Password for Key Derivation: ", confirm=True)
             args.foreign_account = format(PasswordKey(args.account, pwd, args.permission).get_public(), "GLS")
         print_json(steem.commit.allow(
@@ -1240,10 +1240,9 @@ def legacy():
     elif args.command == "updatememokey":
         if not args.key:
             # Loop until both match
-            from steembase.account import PasswordKey
+            from golosbase.account import PasswordKey
             pw = get_terminal(text="Password for Memo Key: ", confirm=True, allowedempty=False)
             memo_key = PasswordKey(args.account, pw, "memo")
-            # TODO: SMT??? for Golos?
             args.key = format(memo_key.get_public_key(), "GLS")
             memo_privkey = memo_key.get_private_key()
             # Add the key to the wallet
@@ -1277,7 +1276,7 @@ def legacy():
         ))
 
     elif args.command == "importaccount":
-        from steembase.account import PasswordKey
+        from golosbase.account import PasswordKey
         import getpass
         password = getpass.getpass("Account Passphrase: ")
         account = Account(args.account)

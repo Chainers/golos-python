@@ -1,5 +1,5 @@
-from steem.commit import Commit
-from steem.steemd import Steemd
+from golos.commit import Commit
+from golos.steemd import Steemd
 
 
 class Steem:

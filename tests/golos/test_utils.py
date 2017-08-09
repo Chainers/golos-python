@@ -1,6 +1,6 @@
 import unittest
 
-from steem.utils import (
+from golos.utils import (
     construct_identifier,
     sanitize_permlink,
     derive_permlink,

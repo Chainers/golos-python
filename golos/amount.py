@@ -27,7 +27,7 @@ class Amount(dict):
         return self["asset"]
 
     def __str__(self):
-        # STEEM
+        # GOLOS
         if self["asset"] == "GBG":
             prec = 3
         elif self["asset"] == "GOLOS":

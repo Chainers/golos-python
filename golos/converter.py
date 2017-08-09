@@ -1,7 +1,7 @@
 import math
 
-from steem.amount import Amount
-from steem.instance import shared_steemd_instance
+from golos.amount import Amount
+from golos.instance import shared_steemd_instance
 
 
 class Converter(object):

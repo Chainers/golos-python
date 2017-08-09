@@ -1,11 +1,12 @@
 import unittest
 from binascii import hexlify
 from pprint import pprint
-from steembase.account import PrivateKey
-from steembase.transactions import SignedTransaction
-from steembase import operations
+from golosbase.account import PrivateKey
+from golosbase.transactions import SignedTransaction
+from golosbase import operations
 from collections import OrderedDict
-import steem as stm
+from golos import Steem
+
 
 wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
 ref_block_num = 34294
@@ -17,7 +18,7 @@ class Testcases(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super(Testcases, self).__init__(*args, **kwargs)
         self.maxDiff = None
-        self.steem = stm.Steem()
+        self.steem = Steem()
 
     def test_Comment(self):
         op = operations.Comment(

@@ -6,14 +6,14 @@ from contextlib import suppress
 from funcy.colls import walk_values, get_in
 from funcy.seqs import take
 from funcy.simple_funcs import rpartial
-from steembase.exceptions import AccountDoesNotExistsException
+from golosbase.exceptions import AccountDoesNotExistsException
 from toolz import dissoc
 
-from steem.amount import Amount
-from steem.blockchain import Blockchain
-from steem.converter import Converter
-from steem.instance import shared_steemd_instance
-from steem.utils import parse_time, json_expand
+from golos.amount import Amount
+from golos.blockchain import Blockchain
+from golos.converter import Converter
+from golos.instance import shared_steemd_instance
+from golos.utils import parse_time, json_expand
 
 
 class Account(dict):

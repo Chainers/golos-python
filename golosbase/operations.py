@@ -4,9 +4,9 @@ import re
 import struct
 from collections import OrderedDict
 
-from steembase.account import PublicKey
-from steembase.operationids import operations
-from steembase.types import (
+from golosbase.account import PublicKey
+from golosbase.operationids import operations
+from golosbase.types import (
     Int16, Uint16, Uint32, Uint64,
     String, Bytes, Array, PointInTime, Bool,
     Optional, Map, Id, JsonObj, StaticVariant)

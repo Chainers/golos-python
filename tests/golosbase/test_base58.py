@@ -1,6 +1,6 @@
 import unittest
 
-from steembase.base58 import (
+from golosbase.base58 import (
     Base58,
     base58decode,
     base58encode,

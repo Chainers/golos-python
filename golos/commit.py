@@ -8,22 +8,22 @@ import voluptuous as vo
 from funcy.colls import none
 from funcy.flow import silent
 from funcy.seqs import first
-from steembase import memo
-from steembase import operations
-from steembase.account import PrivateKey, PublicKey
-from steembase.exceptions import (
+from golosbase import memo
+from golosbase import operations
+from golosbase.account import PrivateKey, PublicKey
+from golosbase.exceptions import (
     AccountExistsException,
     MissingKeyError,
 )
-from steembase.storage import configStorage
+from golosbase.storage import configStorage
 
-from steem.account import Account
-from steem.amount import Amount
-from steem.converter import Converter
-from steem.instance import shared_steemd_instance
-from steem.transactionbuilder import TransactionBuilder
-from steem.utils import derive_permlink, derive_permlink_category, resolve_identifier, fmt_time_string, keep_in_dict
-from steem.wallet import Wallet
+from golos.account import Account
+from golos.amount import Amount
+from golos.converter import Converter
+from golos.instance import shared_steemd_instance
+from golos.transactionbuilder import TransactionBuilder
+from golos.utils import derive_permlink, derive_permlink_category, resolve_identifier, fmt_time_string, keep_in_dict
+from golos.wallet import Wallet
 
 log = logging.getLogger(__name__)
 
@@ -468,7 +468,7 @@ class Commit(object):
             raise AccountExistsException
 
         " Generate new keys from password"
-        from steembase.account import PasswordKey, PublicKey
+        from golosbase.account import PasswordKey, PublicKey
         if password:
             posting_key = PasswordKey(account_name, password, role="posting")
             active_key = PasswordKey(account_name, password, role="active")
@@ -584,7 +584,7 @@ class Commit(object):
         assert asset in ['GOLOS', 'GBG']
 
         if memo and memo[0] == "#":
-            from steembase import memo as Memo
+            from golosbase import memo as Memo
             memo_wif = self.wallet.getMemoKeyForAccount(account)
             if not memo_wif:
                 raise MissingKeyError("Memo key for %s missing!" % account)

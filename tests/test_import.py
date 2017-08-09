@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from steem import *
-from steembase import *
+from golos import *
+from golosbase import *
 
 
 # pylint: disable=unused-import,unused-variable

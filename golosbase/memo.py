@@ -2,10 +2,10 @@ import hashlib
 import struct
 from binascii import hexlify, unhexlify
 
-from steembase.operations import Memo
+from golosbase.operations import Memo
 from Crypto.Cipher import AES
-from steembase.base58 import base58encode, base58decode
-from steembase.account import PrivateKey, PublicKey
+from golosbase.base58 import base58encode, base58decode
+from golosbase.account import PrivateKey, PublicKey
 
 default_prefix = "GLS"
 
@@ -77,7 +77,7 @@ def encode_memo(priv, pub, nonce, message, **kwargs):
         :rtype: hex
 
     """
-    from steembase import transactions
+    from golosbase import transactions
     shared_secret = get_shared_secret(priv, pub)
     aes, check = init_aes(shared_secret, nonce)
     raw = bytes(message, 'utf8')

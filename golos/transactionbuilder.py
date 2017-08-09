@@ -1,17 +1,17 @@
 import logging
 
-from steem.wallet import Wallet
-from steembase.account import PrivateKey
-from steembase.exceptions import (
+from golos.wallet import Wallet
+from golosbase.account import PrivateKey
+from golosbase.exceptions import (
     InsufficientAuthorityError,
     MissingKeyError,
     InvalidKeyFormat
 )
-from steembase.operations import Operation
-from steembase.transactions import SignedTransaction, fmt_time_from_now, get_block_params
+from golosbase.operations import Operation
+from golosbase.transactions import SignedTransaction, fmt_time_from_now, get_block_params
 
-from steem.account import Account
-from steem.instance import shared_steemd_instance
+from golos.account import Account
+from golos.instance import shared_steemd_instance
 
 log = logging.getLogger(__name__)
 

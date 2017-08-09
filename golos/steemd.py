@@ -3,16 +3,16 @@ import logging
 from typing import List, Any, Union, Set
 
 from funcy.seqs import first
-from steembase.chains import known_chains
-from steembase.http_client import HttpClient
-from steembase.storage import configStorage
-from steembase.transactions import SignedTransaction
-from steembase.types import PointInTime
+from golosbase.chains import known_chains
+from golosbase.http_client import HttpClient
+from golosbase.storage import configStorage
+from golosbase.transactions import SignedTransaction
+from golosbase.types import PointInTime
 
-from steem.block import Block
-from steem.blockchain import Blockchain
-from steem.post import Post
-from steem.utils import resolve_identifier
+from golos.block import Block
+from golos.blockchain import Blockchain
+from golos.post import Post
+from golos.utils import resolve_identifier
 
 logger = logging.getLogger(__name__)
 

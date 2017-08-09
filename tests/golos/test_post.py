@@ -1,4 +1,4 @@
-from steem.post import Post
+from golos.post import Post
 
 
 def test_post_refresh():

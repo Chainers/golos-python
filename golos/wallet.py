@@ -1,15 +1,15 @@
 import logging
 import os
 
-from steem.instance import shared_steemd_instance
-from steembase import bip38
-from steembase.account import PrivateKey
-from steembase.exceptions import (
+from golos.instance import shared_steemd_instance
+from golosbase import bip38
+from golosbase.account import PrivateKey
+from golosbase.exceptions import (
     InvalidWifError,
     WalletExists
 )
 
-from steem.account import Account
+from golos.account import Account
 
 log = logging.getLogger(__name__)
 
@@ -51,7 +51,7 @@ class Wallet:
     keyMap = {}  # type:wif pairs to force certain keys
 
     def __init__(self, steemd_instance=None, **kwargs):
-        from steembase.storage import configStorage
+        from golosbase.storage import configStorage
         self.configStorage = configStorage
 
         # RPC
@@ -64,7 +64,7 @@ class Wallet:
             """ If no keys are provided manually we load the SQLite
                 keyStorage
             """
-            from steembase.storage import (keyStorage,
+            from golosbase.storage import (keyStorage,
                                            MasterPassword)
             self.MasterPassword = MasterPassword
             self.keyStorage = keyStorage

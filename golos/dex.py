@@ -1,10 +1,10 @@
 import random
 
-from steembase import transactions, operations
-from steembase.storage import configStorage as config
+from golosbase import transactions, operations
+from golosbase.storage import configStorage as config
 
-from steem.amount import Amount
-from steem.instance import shared_steemd_instance
+from golos.amount import Amount
+from golos.instance import shared_steemd_instance
 
 
 class Dex(object):

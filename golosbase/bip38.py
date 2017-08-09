@@ -2,8 +2,8 @@ import hashlib
 import logging
 from binascii import hexlify, unhexlify
 
-from steembase.account import PrivateKey
-from steembase.base58 import Base58, base58decode
+from golosbase.account import PrivateKey
+from golosbase.base58 import Base58, base58decode
 
 log = logging.getLogger(__name__)
 

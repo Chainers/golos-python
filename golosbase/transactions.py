@@ -8,10 +8,10 @@ from datetime import datetime
 
 import ecdsa
 
-from steembase.account import PrivateKey, PublicKey
-from steembase.chains import known_chains
-from steembase.operations import Operation, GrapheneObject, isArgsThisClass
-from steembase.types import (
+from golosbase.account import PrivateKey, PublicKey
+from golosbase.chains import known_chains
+from golosbase.operations import Operation, GrapheneObject, isArgsThisClass
+from golosbase.types import (
     Array,
     Set,
     Signature,

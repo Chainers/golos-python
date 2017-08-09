@@ -7,17 +7,17 @@ from dateutil.parser import parse
 from funcy.colls import walk_values, get_in
 from funcy.flow import silent
 from funcy.seqs import flatten
-from steembase.exceptions import (
+from golosbase.exceptions import (
     PostDoesNotExist,
     VotingInvalidOnArchivedPost,
 )
-from steembase.operations import CommentOptions
+from golosbase.operations import CommentOptions
 
-from steem.amount import Amount
-from steem.commit import Commit
-from steem.instance import shared_steemd_instance
-from steem.utils import construct_identifier, resolve_identifier
-from steem.utils import parse_time, remove_from_dict
+from golos.amount import Amount
+from golos.commit import Commit
+from golos.instance import shared_steemd_instance
+from golos.utils import construct_identifier, resolve_identifier
+from golos.utils import parse_time, remove_from_dict
 
 log = logging.getLogger(__name__)
 
