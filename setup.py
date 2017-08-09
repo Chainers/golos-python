@@ -5,18 +5,20 @@ import sys
 from setuptools import find_packages
 from setuptools import setup
 
-assert sys.version_info[0] == 3 and sys.version_info[1] >= 5, "golos-python requires Python 3.5 or newer"
+assert sys.version_info[0] == 3 and sys.version_info[1] >= 5, "steep-golos requires Python 3.5 or newer"
 
 
 def readme_file():
     return 'README.rst' if os.path.exists('README.rst') else 'README.md'
 
 
-# yapf: disable
 setup(
-    name='golos-python',
+    name='steep-golos',
     version='0.0.1',
-    description='Python GOLOS Library by SteepShot team.',
+    description='Fork of official python STEEM library for Golos blockchain',
+    license=open('LICENSE').read(),
+    keywords='golos steep-golos',
+    url='https://github.com/Chainers/golos-python',
     long_description=open(readme_file()).read(),
     packages=find_packages(exclude=['scripts']),
     setup_requires=['pytest-runner'],
