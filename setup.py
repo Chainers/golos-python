@@ -12,18 +12,21 @@ def readme_file():
     return 'README.rst' if os.path.exists('README.rst') else 'README.md'
 
 
+def license_file():
+    return 'LICENSE' if os.path.exists('LICENSE') else 'LICENSE.txt'
+
+
 setup(
     name='steep-golos',
     version='0.0.1',
     author='@steepshot',
     author_email='steepshot.org@gmai.com',
     description='Fork of official python STEEM library for Golos blockchain',
-    license=open('LICENSE').read(),
+    license=open(license_file()).read(),
     keywords='golos steep-golos',
     url='https://github.com/Chainers/golos-python',
     long_description=open(readme_file()).read(),
     packages=find_packages(exclude=['scripts']),
-    data_files=[('', ['LICENSE'])],
     setup_requires=['pytest-runner'],
     tests_require=['pytest',
                    'pep8',
