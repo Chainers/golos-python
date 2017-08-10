@@ -20,7 +20,7 @@ setup(
     name='steep-golos',
     version='0.0.1',
     author='@steepshot',
-    author_email='steepshot.org@gmai.com',
+    author_email='steepshot.org@gmail.com',
     description='Fork of official python STEEM library for Golos blockchain',
     license=open(license_file()).read(),
     keywords='golos steep-golos',
