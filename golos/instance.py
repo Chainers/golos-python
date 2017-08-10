@@ -1,4 +1,4 @@
-from golos import steemd
+import golos as gls
 
 _shared_steemd_instance = None
 
@@ -16,7 +16,7 @@ def shared_steemd_instance():
     """
     global _shared_steemd_instance
     if not _shared_steemd_instance:
-        _shared_steemd_instance = steemd.Steemd(nodes=get_config_node_list())
+        _shared_steemd_instance = gls.steemd.Steemd(nodes=get_config_node_list())
     return _shared_steemd_instance
 
 
