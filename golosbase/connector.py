@@ -25,7 +25,7 @@ class Connector(object):
         is_http = False
 
         for node in nodes:
-            schema = urlparse(node).schema
+            schema = urlparse(node).scheme
             if schema in ws_schemas:
                 is_ws = True
             if schema in http_schemas:
