@@ -4,7 +4,7 @@ from typing import List, Any, Union, Set
 
 from funcy.seqs import first
 from golosbase.chains import known_chains
-from golosbase.http_client import HttpClient
+from golosbase.connector import Connector
 from golosbase.storage import configStorage
 from golosbase.transactions import SignedTransaction
 from golosbase.types import PointInTime
@@ -23,7 +23,7 @@ def get_config_node_list():
         return nodes.split(',')
 
 
-class Steemd(HttpClient):
+class Steemd(Connector):
     """ Connect to the Steem network.
 
         Args:

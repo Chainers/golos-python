@@ -18,13 +18,13 @@ def license_file():
 
 setup(
     name='steep-golos',
-    version='0.0.3',
+    version='0.0.4',
     author='@steepshot',
     author_email='steepshot.org@gmail.com',
     description='Fork of official python STEEM library for Golos blockchain',
     license=open(license_file()).read(),
     keywords='golos steep-golos',
-    url='https://github.com/Chainers/golos-python',
+    url='https://github.com/Chainers/steep-golos',
     long_description=open(readme_file()).read(),
     packages=find_packages(exclude=['scripts']),
     setup_requires=['pytest-runner'],
@@ -56,7 +56,8 @@ setup(
         'diff-match-patch',
         'prettytable',
         'voluptuous',
-        "python-dateutil",
+        'python-dateutil',
+        'websocket-client'
     ],
     entry_points={
         'console_scripts': [
