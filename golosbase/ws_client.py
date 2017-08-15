@@ -1,8 +1,8 @@
 import logging
+import ssl
 import time
 from itertools import cycle
 
-import certifi
 import websocket
 
 from golosbase.base_client import BaseClient
@@ -33,7 +33,6 @@ class WsClient(BaseClient):
             self.url = next(self.nodes)
             logger.debug("Trying to connect to node %s" % self.url)
             if self.url[:3] == "wss":
-                # sslopt_ca_certs = {'cert_reqs': 'CERT_REQUIRED', 'ca_certs': certifi.where()}
                 sslopt_ca_certs = {'cert_reqs': ssl.CERT_NONE}
                 self.ws = websocket.WebSocket(sslopt=sslopt_ca_certs)
             else:

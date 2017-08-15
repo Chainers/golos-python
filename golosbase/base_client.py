@@ -55,7 +55,11 @@ class BaseClient(object):
 
         if response:
             try:
-                response_json = json.loads(response.data.decode('utf-8'))
+                if hasattr(response, 'data'):
+                    data = response.data.decode('utf-8')
+                else:
+                    data = response if isinstance(response, str) else response.decode('utf-8')
+                response_json = json.loads(data)
             except Exception as e:
                 extra = dict(response=response, request_args=args, err=e)
                 logger.info('failed to load response', extra=extra)
