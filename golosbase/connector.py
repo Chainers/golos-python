@@ -19,7 +19,7 @@ class Connector(object):
     @staticmethod
     def get_schema(nodes):
         ws_schemas = ['ws', 'wss']
-        http_schemas = ['http', 'https']
+        http_schemas = ['', 'http', 'https']
 
         is_ws = False
         is_http = False
