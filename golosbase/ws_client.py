@@ -12,6 +12,33 @@ logger = logging.getLogger(__name__)
 
 
 class WsClient(BaseClient):
+    """ Simple Golos JSON-WebSocket-RPC API
+
+        This class serves as an abstraction layer for easy use of the Golos API.
+
+        Args:
+          nodes (list): A list of Golos WebSocket RPC nodes to connect to.
+
+        .. code-block:: python
+
+           from golosbase.http_client import HttpClient
+           rpc = HttpClient(['https://steemd-node1.com', 'https://steemd-node2.com'])
+
+        any call available to that port can be issued using the instance
+        via the syntax ``rpc.exec('command', *parameters)``.
+
+        Example:
+
+        .. code-block:: python
+
+           rpc.exec(
+               'get_followers',
+               'furion', 'abit', 'blog', 10,
+               api='follow_api'
+           )
+
+        """
+
     def __init__(self, nodes: list, **kwargs):
         super().__init__()
 

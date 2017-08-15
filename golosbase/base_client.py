@@ -9,6 +9,10 @@ logger = logging.getLogger(__name__)
 
 
 class BaseClient(object):
+    """
+    This class provides general methods to process requests and responses from blockchain nodes
+    """
+
     def __init__(self):
         self.return_with_args = False
         self.re_raise = True

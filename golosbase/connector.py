@@ -41,6 +41,13 @@ class Connector(object):
         return self.client.hostname
 
     def exec(self, name, *args, api=None, return_with_args=None, _ret_cnt=0):
+        """ Execute a method against steemd RPC.
+
+        Warnings:
+            This command will auto-retry in case of node failure, as well as handle
+            node fail-over, unless we are broadcasting a transaction.
+            In latter case, the exception is **re-raised**.
+        """
         return self.client.exec(name, *args, api=api, return_with_args=return_with_args, _ret_cnt=_ret_cnt)
 
     def exec_multi_with_futures(self, name, params, api=None, max_workers=None):

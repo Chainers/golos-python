@@ -17,17 +17,17 @@ logger = logging.getLogger(__name__)
 
 
 class HttpClient(BaseClient):
-    """ Simple Steem JSON-HTTP-RPC API
+    """ Simple Golos JSON-HTTP-RPC API
 
-    This class serves as an abstraction layer for easy use of the Steem API.
+    This class serves as an abstraction layer for easy use of the Golos API.
 
     Args:
-      nodes (list): A list of Steem HTTP RPC nodes to connect to.
+      nodes (list): A list of Golos HTTP RPC nodes to connect to.
 
     .. code-block:: python
 
-       from steem.http_client import HttpClient
-       rpc = HttpClient(['https://steemd-node1.com', 'https://steemd-node2.com'])
+       from golosbase.http_client import HttpClient
+       rpc = HttpClient(['https://golos-node1.com', 'https://golos-node2.com'])
 
     any call available to that port can be issued using the instance
     via the syntax ``rpc.exec('command', *parameters)``.

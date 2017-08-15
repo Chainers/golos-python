@@ -50,7 +50,7 @@ class Steemd(Connector):
 
     def __init__(self, nodes=None, **kwargs):
         if not nodes:
-            nodes = get_config_node_list() or ['https://ws.golos.io']
+            nodes = get_config_node_list() or ['wss://ws.golos.io']
         
         super(Steemd, self).__init__(nodes, **kwargs)
 
