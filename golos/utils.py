@@ -277,6 +277,8 @@ def sanitize_permlink(permlink):
     permlink = permlink.strip()
     permlink = re.sub("_|\s|\.", "-", permlink)
     permlink = re.sub("[^\w-]", "", permlink)
+    pattern = re.compile('|'.join(rus_d.keys()))
+    permlink = pattern.sub(lambda x: rus_d[x.group()], permlink)
     permlink = re.sub("[^a-zA-Z0-9-]", "", permlink)
     permlink = permlink.lower()
     return permlink
