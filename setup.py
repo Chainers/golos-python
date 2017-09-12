@@ -18,7 +18,7 @@ def license_file():
 
 setup(
     name='steep-golos',
-    version='0.0.5',
+    version='0.0.6',
     author='@steepshot',
     author_email='steepshot.org@gmail.com',
     description='Fork of official python STEEM library for Golos blockchain',
