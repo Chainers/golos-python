@@ -16,7 +16,7 @@ from golosbase.operations import CommentOptions
 from golos.amount import Amount
 from golos.commit import Commit
 from golos.instance import shared_steemd_instance
-from golos.utils import construct_identifier, resolve_identifier
+from golos.utils import construct_identifier, resolve_identifier, calculate_trending, calculate_hot
 from golos.utils import parse_time, remove_from_dict
 
 log = logging.getLogger(__name__)
@@ -78,18 +78,22 @@ class Post(dict):
 
         # Parse Amounts
         sbd_amounts = [
-            "total_payout_value",
-            "max_accepted_payout",
-            "pending_payout_value",
-            "curator_payout_value",
-            "total_pending_payout_value",
-            "promoted",
+            'total_payout_value',
+            'max_accepted_payout',
+            'pending_payout_value',
+            'curator_payout_value',
+            'total_pending_payout_value',
+            'promoted',
         ]
         for p in sbd_amounts:
             post[p] = Amount(post.get(p, "0.000 GBG"))
 
         # sum of payouts to get trending posts
         post['sum_payout_data'] = post['total_payout_value'] + post['curator_payout_value'] + post['pending_payout_value']
+
+        # calculate trending and hot scores for sorting
+        post['score_trending'] = calculate_trending(post.get('net_rshares', 0), post['created'])
+        post['score_hot'] = calculate_hot(post.get('net_rshares', 0), post['created'])
 
         # turn json_metadata into python dict
         meta_str = post.get("json_metadata", "{}")
