@@ -3,10 +3,7 @@ import math
 import time
 from contextlib import suppress
 
-from funcy.colls import walk_values, get_in
-from funcy.seqs import take
-from funcy.simple_funcs import rpartial
-from golosbase.exceptions import AccountDoesNotExistsException
+from funcy import walk_values, get_in, take, rpartial
 from toolz import dissoc
 
 from golos.amount import Amount
@@ -14,6 +11,7 @@ from golos.blockchain import Blockchain
 from golos.converter import Converter
 from golos.instance import shared_steemd_instance
 from golos.utils import parse_time, json_expand
+from golosbase.exceptions import AccountDoesNotExistsException
 
 
 class Account(dict):

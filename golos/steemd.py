@@ -2,17 +2,17 @@
 import logging
 from typing import List, Any, Union, Set
 
-from funcy.seqs import first
-from golosbase.chains import known_chains
-from golosbase.connector import Connector
-from golosbase.storage import configStorage
-from golosbase.transactions import SignedTransaction
-from golosbase.types import PointInTime
+from funcy import first
 
 from golos.block import Block
 from golos.blockchain import Blockchain
 from golos.post import Post
 from golos.utils import resolve_identifier
+from golosbase.chains import known_chains
+from golosbase.connector import Connector
+from golosbase.storage import configStorage
+from golosbase.transactions import SignedTransaction
+from golosbase.types import PointInTime
 
 logger = logging.getLogger(__name__)
 
