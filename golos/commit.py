@@ -378,7 +378,7 @@ class Commit(object):
                        additional_posting_accounts=[],
                        store_keys=True,
                        store_owner_key=False,
-                       delegation_fee_steem='0 STEEM',
+                       delegation_fee_steem='0 GOLOS',
                        creator=None,
                        ):
         """ Create new account in Steem
@@ -398,12 +398,12 @@ class Commit(object):
                        
                        **You can partially pay that fee by delegating VESTS.**
                        
-                       To pay the fee in full in STEEM, leave ``delegation_fee_steem`` set to ``0 STEEM`` (Default).
+                       To pay the fee in full in GOLOS, leave ``delegation_fee_steem`` set to ``0 GOLOS`` (Default).
                        
-                       To pay the fee partially in STEEM, partially with delegated VESTS, set ``delegation_fee_steem``
-                       to a value greater than ``1 STEEM``. `Required VESTS will be calculated automatically.`
+                       To pay the fee partially in GOLOS, partially with delegated VESTS, set ``delegation_fee_steem``
+                       to a value greater than ``1 GOLOS``. `Required VESTS will be calculated automatically.`
                        
-                       To pay the fee with maximum amount of delegation, set ``delegation_fee_steem`` to ``1 STEEM``.
+                       To pay the fee with maximum amount of delegation, set ``delegation_fee_steem`` to ``1 GOLOS``.
                        `Required VESTS will be calculated automatically.`
 
             .. warning:: Don't call this method unless you know what
@@ -436,9 +436,9 @@ class Commit(object):
             :param bool store_keys: Store new keys in the wallet (default: ``True``)
             :param bool store_owner_key: Store owner key in the wallet (default: ``False``)
             :param str delegation_fee_steem: (Optional) If set, `creator` pay a fee of this amount,
-                                        and delegate the rest with VESTS (calculated automatically).
-                                        Minimum: 1 STEEM. If left to 0 (Default), full fee is paid
-                                        without VESTS delegation.
+                                        and delegate the rest with GESTS (calculated automatically).
+                                        Minimum: 1 GOLOS. If left to 0 (Default), full fee is paid
+                                        without GESTS delegation.
             :param str creator: which account should pay the registration fee
                                 (defaults to ``default_account``)
             :raises AccountExistsException: if the account already exists on the blockchain
@@ -532,7 +532,7 @@ class Commit(object):
         if delegation_fee_steem:
             # creating accounts without delegation requires 30x account_creation_fee
             # creating account with delegation allows one to use VESTS to pay the fee
-            # where the ratio must satisfy 1 STEEM in fee == 5 STEEM in delegated VESTS
+            # where the ratio must satisfy 1 GOLOS in fee == 5 GOLOS in delegated VESTS
             delegated_sp_fee_mult = 5
 
             if delegation_fee_steem < 1:
@@ -612,7 +612,7 @@ class Commit(object):
     def withdraw_vesting(self, amount, account=None):
         """ Withdraw GESTS from the vesting account.
 
-            :param float amount: number of VESTS to withdraw over a period of 104 weeks
+            :param float amount: number of GESTS to withdraw over a period of 104 weeks
             :param str account: (optional) the source account for the transfer if not ``default_account``
         """
         if not account:
@@ -653,7 +653,7 @@ class Commit(object):
                "amount": '{:.{prec}f} {asset}'.format(
                    float(amount),
                    prec=3,
-                   asset='STEEM')
+                   asset='GOLOS')
                }
         )
 
@@ -778,8 +778,8 @@ class Commit(object):
         return self.finalizeOp(op, account, "active")
 
     def claim_reward_balance(self,
-                             reward_steem='0 STEEM',
-                             reward_sbd='0 SBD',
+                             reward_steem='0 GOLOS',
+                             reward_sbd='0 GBG',
                              reward_vests='0 VESTS',
                              account=None):
         """ Claim reward balances.
@@ -788,9 +788,9 @@ class Commit(object):
         set desired claim amount by setting any of `reward_steem`, `reward_sbd` or `reward_vests`.
 
         Args:
-            reward_steem (string): Amount of STEEM you would like to claim.
-            reward_sbd (string): Amount of SBD you would like to claim.
-            reward_vests (string): Amount of VESTS you would like to claim.
+            reward_steem (string): Amount of GOLOS you would like to claim.
+            reward_sbd (string): Amount of GBG you would like to claim.
+            reward_vests (string): Amount of GESTS you would like to claim.
             account (string): The source account for the claim if not ``default_account`` is used.
         """
         if not account:
