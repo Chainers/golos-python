@@ -33,7 +33,7 @@ class BaseClient(object):
         Args:
             name (str): Name of a method we are trying to call. (ie: `get_accounts`)
             args: A list of arguments belonging to the calling method.
-            api (None, str): If api is provided (ie: `follow_api`),
+            api (None, str): If api is provided (ie: `follow`),
              we generate a body that uses `call` method appropriately.
             as_json (bool): Should this function return json as dictionary or string.
             _id (int): This is an arbitrary number that can be used for request/response tracking in multi-threaded

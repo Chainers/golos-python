@@ -34,7 +34,7 @@ class WsClient(BaseClient):
            rpc.exec(
                'get_followers',
                'furion', 'abit', 'blog', 10,
-               api='follow_api'
+               api='follow'
            )
 
         """

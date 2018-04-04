@@ -75,7 +75,7 @@ If a method is not available trough the Python API, we can call it manually usin
    # is same as
    s.exec('get_followers',
           'furion', 'abit', 'blog', 10,
-           api='follow_api')
+           api='follow')
 
 Commit and Wallet
 =================
